@@ -24,6 +24,12 @@ $json_res = $api->Call("https://api1.cbinsights.com/api/1/company/info/?ids=6298
 
 //convert JSON to PHP array
 $array_res = json_decode($json_res, true);
+
+//display how many API credits the last call cost
+echo('Last API call cost '.$api->LastCallCost().' credits.');
+
+//display how many API credits the account has left
+echo('Account has '.$api->CreditsLeft().' credits left.');
 </code></pre>
 
 ##Documentation
