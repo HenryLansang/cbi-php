@@ -20,7 +20,7 @@ $api = new API("1234", "56789", true, 'json'); //sandbox API instance
 $api = new API("1234", "56789", false, 'json'); //production API instance
 
 //Make an API call
-$json_res = $api->Call("https://api1.cbinsights.com/api/1/company/info/?ids=62988,8427");
+$json_res = $api->Call('https://api1.cbinsights.com/api/1/company/info/', 'GET', array('ids' => '62988,8427'));
 
 //convert JSON to PHP array
 $array_res = json_decode($json_res, true);
