@@ -52,11 +52,11 @@
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 					break;
 				case 'delete':
-					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 					break;
 				case 'put':
-					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+					curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 					break;
 				case 'head':
