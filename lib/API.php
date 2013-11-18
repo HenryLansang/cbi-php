@@ -13,21 +13,26 @@
 		}//__construct
 
 		public function Call($url, $method=null, $params=[]) {
-			$ch = $sha = $ts = $url_params = null;
+			$ch = $sha = $ts = null;
+			$url_params = array();
 			$data = array();
 			$method = strtolower($method);
 
 			if((empty($method) || $method == 'get') && !empty($params)) {
 				//encode each parameter
 				foreach($params as $key => $val) {
-					$url_params .= urlencode($key).'='.urlencode($val).'&';
+					if(is_array($val)) {
+						foreach($val as $value){
+							//Add [] to the parameter
+							$url_params []= urlencode($key) . '[]=' . urlencode($value);
+						} //foreach
+					} else {
+						$url_params []= urlencode($key).'='.urlencode($val);
+					} //else
 				}//foreach
 
-				//remove trailing '&'
-				$url_params = substr($url_params, 0, -1);
- 			
 	 			//attach parameters to base URL
-	 			$url .= "?$url_params";
+	 			$url .= "?".implode('&', $url_params);
  			}//if
 
 			//current timestamp for hash of Api-Data header and Api-Ts header
