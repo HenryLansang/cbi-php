@@ -12,7 +12,7 @@
 			$this->accept_header = $accept_header;
 		}//__construct
 
-		public function Call($url, $method=null, $params=[]) {
+		public function Call($url, $method=null, $params=array()) {
 			$ch = $sha = $ts = null;
 			$url_params = array();
 			$data = array();
