@@ -49,6 +49,7 @@
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, true);
 			curl_setopt($ch, CURLOPT_HEADER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->ssl_verify_peer);
 			
 			//certain parameters for different HTTP methods
 			switch($method){
@@ -75,6 +76,10 @@
 			//finish setting up and execute CURL request
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Api-Data: $data", "Api-Key: ".$this->api_key, "Api-Ts: $ts", "Api-Sandbox: ".$this->sandbox, "Api-Accept: ".strtolower($this->accept_header)));
 			$resp = curl_exec($ch);
+
+			if(curl_error($ch) != '') {
+				return(json_encode(array('curlError' => curl_error($ch))));
+			}//if
 
 			//separate header/body
 			$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -112,6 +117,10 @@
 			return($this->last_call_cost);
 		}//LastApiCallCost
 
+		public function SetSSLVerifyPeer($ssl_vp) {
+			$this->ssl_verify_peer = $ssl_vp;
+		}//SetSSLVerifyPeer
+
 		private function ParseHeaders($raw_headers) {
 			$headers = array();
 	   
@@ -137,5 +146,6 @@
 		}//parseHeaders
 
 		private $accept_header, $api_key, $credits_left, $last_call_cost, $sandbox, $sec_key;
+		private $ssl_verify_peer = true;
 	}//API
 ?>
